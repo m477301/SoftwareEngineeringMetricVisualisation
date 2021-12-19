@@ -40,10 +40,8 @@ Day 1
 // Setup Backend and Backend Tests Framework
 // Dockerize backend
 
-Setup frontend and frontend tests
-Dockerize frontend
-
-Script to run frontend easily and backend easily
+// Setup frontend and frontend tests
+// Dockerize frontend
 
 Searchable Github Visualisation of User (User Profile Analysing performance)
 -- Commit history
@@ -54,6 +52,8 @@ Searchable Github Visualisation of User (User Profile Analysing performance)
 -- Collaborators
 
 Landing Page as well
+
+Script to run frontend easily and backend easily
 
 Explore Github API
 
@@ -88,5 +88,10 @@ Rest API (Backend) -- Typescript(React) (Dockerized))
 ||
 Display Data (Frontend) -- Typescript (Dockerized)
 
+// Backend
 docker build --tag server .
 docker run --rm -d -p 8080:8080 --env-file .env server
+
+// frontend
+docker build --tag website .
+docker run --rm -d -p 3000:3000 website
