@@ -1,4 +1,4 @@
-import setEnvironment from "./setEnvironment.js";
+import setEnvironment from "./setEnvironment";
 
 setEnvironment();
 

@@ -1,9 +1,11 @@
-import router from "./controllers/router.js";
-import config from "./configurations/server.js";
+import cors from "cors";
+import router from "./controllers/router";
+import config from "./configurations/server";
 
 const express = require("express");
 const app = express();
-const port = 8080;
+
+app.use(cors());
 
 app.use(router);
 
