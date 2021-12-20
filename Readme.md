@@ -75,6 +75,10 @@ Mini Demo video
 Describe Setup(Create env)
 Describe Folder Structure
 
+## Extras
+
+Animated Page transition bottom to top after search
+
 ## Plan
 
 run from script

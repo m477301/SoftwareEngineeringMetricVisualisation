@@ -1,0 +1,19 @@
+body {
+  //   min-height: 100vh;
+  margin: 0;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Pages
+@import "page_home.scss"; // Home Page
+@import "page_profile.scss"; // Client
+
+@import "fonts.scss";

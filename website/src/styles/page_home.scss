@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Kavoon&display=swap");
+
+.Home {
+  display: grid;
+  grid-template-rows: 35vh 65vh;
+  .UpperCanvas {
+    background-color: #8d6d88;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0.5rem;
+    font-size: 10vh;
+    color: #ffffff;
+    // font-style: url("https://fonts.googleapis.com/css2?family=Kavoon&display=swap");
+    font-family: "Kavoon", cursive;
+    word-wrap: break-word;
+  }
+
+  .LowerCanvas {
+    display: flex;
+    justify-content: center;
+    background-color: #8d6d88;
+
+    .searchInput {
+      height: 50px;
+      width: 60vh;
+      border-radius: 0.8rem;
+      border-color: red;
+    }
+  }
+}
