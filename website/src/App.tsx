@@ -1,6 +1,9 @@
 /*THIRD PARTY FUNCTIONS*/
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+/* CSS */
+import "./styles/global.scss";
+
 /* ---------------------------------------------------------- PAGES ---------------------------------------------------------- */
 
 import HomePage from "./pages/HomePage";
