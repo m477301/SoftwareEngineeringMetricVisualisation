@@ -77,7 +77,7 @@ Describe Folder Structure
 
 ## Extras
 
-Animated Page transition bottom to top after search
+Animated Page transition bottom to top after search for user profile
 
 ## Plan
 

@@ -2,6 +2,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
+/* COMPONENTS */
+import UserCard from "../components/UserCard";
+
 /* API */
 import { connect } from "react-redux";
 import { getBasicUserInfo } from "../actions/usersActions";
@@ -38,10 +41,7 @@ function UserProfile(props: any) {
 
   return (
     <>
-      <div>UserProfile {userData.login}</div>
-      <img src={userData.avatar_url} alt={userData.name} />
-      <p>{userData.name}</p>
-      <p>{userData.bio}</p>
+      <UserCard {...userData} />
     </>
   );
 }
