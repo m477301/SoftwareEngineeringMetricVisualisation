@@ -78,6 +78,7 @@ Describe Folder Structure
 ## Extras
 
 Animated Page transition bottom to top after search for user profile
+Home Page, html canvas moving directed graphs mockup
 
 ## Plan
 

@@ -1,6 +1,6 @@
 .UserCard {
-  width: 50vh;
-  height: 50vh;
+  width: minmax(40vh, auto);
+  height: 40vh;
   background-color: pink;
   border-radius: 1rem;
   border-style: solid;
@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-
+  // margin: 10vh;
   a {
     text-decoration: none;
   }

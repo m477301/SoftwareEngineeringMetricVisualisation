@@ -40,9 +40,16 @@ function UserProfile(props: any) {
   }, [props.userBasicInfo]);
 
   return (
-    <>
+    <div className="UserProfile">
+      {/* <div style={{ margin: "10vh" }}> */}
       <UserCard {...userData} />
-    </>
+      {/* <div className="first"></div> */}
+      <div className="second"></div>
+      <div className="third"></div>
+      {/* <div
+        style={{ backgroundColor: "red", width: "auto", height: "40vh" }}
+      ></div> */}
+    </div>
   );
 }
 
