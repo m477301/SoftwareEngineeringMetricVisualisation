@@ -35,8 +35,6 @@ three.js
 Test backend and frontend
 commit often commit early
 
-Day 1
-
 // Setup Backend and Backend Tests Framework
 // Dockerize backend
 
@@ -44,12 +42,17 @@ Day 1
 // Dockerize frontend
 
 Searchable Github Visualisation of User (User Profile Analysing performance)
+
+// -- Details about the user (contacts), any relevant infor
 -- Commit history
--- Impact of Commit (Lines Added Lines Removed)
--- Types of actions Commits/PRs/Resolving Issues
--- Details about the user (contacts), any relevant infor
 -- Repos Forked
 -- Collaborators
+-- Impact of Commit (Lines Added Lines Removed)
+-- Types of actions Commits/PRs/Resolving Issues
+-- Most frequently used languages (Piechart and Barchart)
+-- Avg number of commits per week
+-- Avg number of prs per week
+Bring page all together
 
 Landing Page as well
 
@@ -57,19 +60,18 @@ Script to run frontend easily and backend easily
 
 Explore Github API
 
-Day 2
-
 Network Graphic User - Repo - Contibutors
 Click User, user profile
 Click Repo, Compare multiple users performance in single repo (Contributors vs main user)
 Click Contributors, contributors profile
 
-Day 3
+Repo Profile
+Animated Commit history
+Animated Languages used (Piechart)
+Collapse Tree Branch History
 
 host the website on matteomcguinness.com/githubvisualisation with github actions
 Rewrite Readme.md
-
-Day 4
 
 Mini Demo video
 Describe Setup(Create env)
@@ -79,6 +81,7 @@ Describe Folder Structure
 
 Animated Page transition bottom to top after search for user profile
 Home Page, html canvas moving directed graphs mockup
+Interesting Repos sxywu
 
 ## Plan
 

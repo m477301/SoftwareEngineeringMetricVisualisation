@@ -1,9 +1,11 @@
 /* THIRD PARTY FUNCTIONS */
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+// import * as d3 from "d3";
 
 /* COMPONENTS */
 import UserCard from "../components/UserCard";
+import LineChart from "../components/LineChart";
 
 /* API */
 import { connect } from "react-redux";
@@ -42,13 +44,29 @@ function UserProfile(props: any) {
   return (
     <div className="UserProfile">
       {/* <div style={{ margin: "10vh" }}> */}
-      <UserCard {...userData} />
-      {/* <div className="first"></div> */}
-      <div className="second"></div>
-      <div className="third"></div>
-      {/* <div
+      <div className="UserProfileCard">
+        <div className="first">
+          <UserCard {...userData} />
+          <div></div>
+        </div>
+        <div className="second">
+          <div className="ChartCard">
+            <div>Title</div>
+            <LineChart
+              width={500}
+              height={200}
+              top={25}
+              bottom={30}
+              left={30}
+              right={25}
+            />
+          </div>
+        </div>
+        {/* <div className="third"></div> */}
+        {/* <div
         style={{ backgroundColor: "red", width: "auto", height: "40vh" }}
       ></div> */}
+      </div>
     </div>
   );
 }

@@ -1,32 +1,4 @@
 .UserProfile {
-  background: linear-gradient(-45deg, #be3b63, #f0d9d9) no-repeat fixed;
   height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 50vh 50vh;
-
-  row-gap: 20px;
-  column-gap: 20px;
-  justify-content: center;
-  align-items: center;
-  grid-template-areas:
-    "a b b"
-    "c c c";
   overflow: hidden;
-
-  .first {
-    grid-area: a;
-    height: 40vh;
-    margin: 20px;
-  }
-  .second {
-    grid-area: b;
-    background-color: red;
-    height: 40vh;
-  }
-  .third {
-    grid-area: c;
-    background-color: red;
-    height: 50vh;
-  }
 }

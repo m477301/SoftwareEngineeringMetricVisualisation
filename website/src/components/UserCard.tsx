@@ -1,6 +1,6 @@
 function UserCard({ ...props }) {
   return (
-    <div className="UserCard first">
+    <div className="UserCard">
       <img src={props.avatar_url} alt={props.name} />
       <div className="userDetails">
         <div className="Title">{props.name}</div>
