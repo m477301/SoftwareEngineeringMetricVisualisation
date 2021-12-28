@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 // import { currentEvent } from "d3-selection";
 
-import aapl from "./aapl.json";
 import { Type } from "./types";
 // import { howto, altplot } from "@d3/example-components";
 
@@ -11,7 +10,7 @@ function LineChart(props: Props) {
 
   useEffect(() => {
     draw();
-  }, []);
+  }, [props.data]);
 
   const draw = () => {
     d3.select("#container").select("svg").remove();

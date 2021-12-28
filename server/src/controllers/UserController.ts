@@ -60,7 +60,6 @@ router.get("/commits/:username", async (req, res) => {
       },
     })
     .then(async (response) => {
-      console.log("SUCCRSS");
       let listOfRepoNames = response.data.map((d) => {
         return d.name;
       });
@@ -80,16 +79,13 @@ router.get("/commits/:username", async (req, res) => {
             },
           })
           .then((response) => {
-            let commitData = response.data.map((d) => {
-              if (d.author && d.author.login) {
+            let commitFilteredData = response.data.filter((d) => {
+              return d.committer && d.committer.login === requestedUser;
+            });
+            let commitData = commitFilteredData.map((d) => {
+              if (d.committer && d.committer.login === requestedUser) {
                 return {
-                  user: d.author.login,
-                  repo: listOfRepoNames[i],
-                  date: d.commit.committer.date,
-                  message: d.commit.message,
-                };
-              } else {
-                return {
+                  user: d.committer.login,
                   repo: listOfRepoNames[i],
                   date: d.commit.committer.date,
                   message: d.commit.message,
@@ -106,7 +102,6 @@ router.get("/commits/:username", async (req, res) => {
         return (new Date(b.date) as any) - (new Date(a.date) as any);
       });
       return res.json(orderedCommits);
-      // TEST WEEKLY
     })
     .catch((error) => {
       console.log(error);

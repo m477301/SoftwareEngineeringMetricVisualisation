@@ -1,0 +1,20 @@
+#barChart {
+  background-color: rgb(252, 169, 183);
+  width: 50vw;
+  height: 50vh;
+  border-radius: 0.5rem;
+}
+
+.axis line {
+  stroke: white;
+}
+
+.axis path {
+  stroke: white;
+  stroke-width: 0.2rem;
+}
+
+.axis text {
+  fill: white;
+  font-size: small;
+}

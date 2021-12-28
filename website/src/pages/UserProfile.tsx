@@ -7,6 +7,13 @@ import { useParams } from "react-router-dom";
 import UserCard from "../components/UserCard";
 import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
+import ChartHeading from "../components/ChartHeading";
+
+/* HELPERS */
+import {
+  convertYearlyDataToMonthly,
+  convertDataCommitsToYearly,
+} from "../helpers/CommitsTimes";
 
 /* API */
 import { connect } from "react-redux";
@@ -27,8 +34,8 @@ function UserProfile(props: any) {
       setUserData(props.userBasicInfo.data);
     } else {
       props.getBasicUserInfo(username);
-      props.getUserCommits(username);
     }
+    props.getUserCommits(username);
   }, [username]);
 
   const firstUpdate = useRef(true);
@@ -53,9 +60,28 @@ function UserProfile(props: any) {
     if (props.userCommits.data.error) {
       alert(props.userCommits.data.error);
     } else if (props.userCommits.data) {
-      setUserCommits(props.userCommits.data);
+      setUserCommits(convertDataCommitsToYearly(props.userCommits.data));
+      console.log("DATA", props.userCommits.data);
     }
   }, [props.userCommits]);
+
+  const selectBarChartTimeline = (data: any) => {
+    if (data.title === "year") {
+      setUserCommits(convertDataCommitsToYearly(props.userCommits.data));
+    } else if (data.title === "month") {
+      // setUserCommits([]);
+    }
+  };
+
+  const pull_convertScale = (data: any) => {
+    console.log(data);
+    if (data) {
+      if (data.timeScale.length === 4) {
+        console.log(convertYearlyDataToMonthly(data.data));
+        setUserCommits(convertYearlyDataToMonthly(data.data));
+      }
+    }
+  };
 
   return (
     <div className="UserProfile">
@@ -67,17 +93,15 @@ function UserProfile(props: any) {
         </div>
         <div className="second">
           <div className="ChartCard">
-            <div>Title</div>
-            {/* <LineChart
-              width={500}
-              height={200}
-              top={25}
-              bottom={30}
-              left={30}
-              right={25}
-              data={userCommits}
-            /> */}
-            <BarChart data={userCommits} />
+            <ChartHeading
+              title="User Commits vs. Time"
+              widgetOptions={[
+                { title: "year", state: true },
+                { title: "month", state: false },
+              ]}
+              selectedTime={selectBarChartTimeline}
+            />
+            <BarChart data={userCommits} convertScale={pull_convertScale} />
           </div>
         </div>
         {/* <div className="third"></div> */}
