@@ -1,4 +1,4 @@
-import { GET_GITHUB_USER_BASIC_INFO } from "./types";
+import { GET_GITHUB_USER_BASIC_INFO, GET_ALL_USER_COMMITS } from "./types";
 import axios from "axios";
 import { Dispatch } from "redux";
 
@@ -12,5 +12,17 @@ export const getBasicUserInfo = (username: string) => (dispatch: Dispatch) => {
     .catch((reason) => {
       console.warn(reason);
       dispatch({ type: GET_GITHUB_USER_BASIC_INFO, payload: reason.response });
+    });
+};
+
+export const getUserCommits = (username: string) => (dispatch: Dispatch) => {
+  axios
+    .get(`user/commits/${username}`)
+    .then((payload) => {
+      dispatch({ type: GET_ALL_USER_COMMITS, payload });
+    })
+    .catch((reason) => {
+      console.warn(reason);
+      dispatch({ type: GET_ALL_USER_COMMITS, payload: reason.response });
     });
 };

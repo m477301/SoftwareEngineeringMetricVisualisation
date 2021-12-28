@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
+// import { currentEvent } from "d3-selection";
 
 import aapl from "./aapl.json";
 import { Type } from "./types";
 // import { howto, altplot } from "@d3/example-components";
 
 function LineChart(props: Props) {
-  const svgRef: any = useRef();
+  const svgRef: any = useRef(null);
 
   useEffect(() => {
     draw();
@@ -14,19 +15,19 @@ function LineChart(props: Props) {
 
   const draw = () => {
     d3.select("#container").select("svg").remove();
-    d3.select("#container").select(".tooltip").remove();
+    // d3.select("#container").select(".tooltip").remove();
 
     const xAxiswidth = props.width - props.left - props.right;
     const yAxisHeight = props.height - props.top - props.bottom;
 
-    const clean_data = aapl.map((d) => {
-      let newDate = d3.timeParse("%Y-%m-%dT%H:%M:%S.%LZ")(d.date);
-      return {
-        date: newDate,
-        close: +d.close,
-        tooltipContent: `<b>x: </b>${newDate?.getDay()}<br><b>y: </b>${+d.close}`,
-      };
-    });
+    // const clean_data = props.data.map((d:any) => {
+    //   let newDate = d3.timeParse("%Y-%m-%dT%H:%M:%S.%LZ")(d.date);
+    //   return {
+    //     date: newDate,
+    //     close: +d.close,
+    //     tooltipContent: `<b>x: </b>${newDate?.getDay()}<br><b>y: </b>${+d.close}`,
+    //   };
+    // });
 
     const svg = d3
       .select(svgRef.current)
@@ -34,13 +35,14 @@ function LineChart(props: Props) {
       .append("g")
       .attr("transform", `translate(${props.left}, ${props.top})`)
       .attr("color", "#85c4e9");
+
     // Scales
     const x = d3
       .scaleTime()
       .domain(
-        d3.extent(clean_data, (d) => {
+        d3.extent(props.data, (d: any) => {
           return d.date;
-        }) as [Date, Date]
+        }) as any
       )
       .range([0, xAxiswidth])
       .nice();
@@ -49,9 +51,9 @@ function LineChart(props: Props) {
       .scaleLinear()
       .domain([
         0,
-        d3.max(clean_data, (d) => {
+        d3.max(props.data, (d: any) => {
           return Math.max(
-            ...clean_data.map((dt) => (dt as unknown as Type.Data).close)
+            ...props.data.map((dt: any) => (dt as unknown as Type.Data).close)
           );
         }),
       ] as [number, number])
@@ -102,7 +104,7 @@ function LineChart(props: Props) {
       .call(d3.axisLeft(y))
       .attr("stroke", "#85c4e9")
       .attr("stroke-width", 4)
-      .call((g) =>
+      .call((g: any) =>
         g
           .append("text")
           .attr("x", -(props.left - 20))
@@ -114,9 +116,9 @@ function LineChart(props: Props) {
 
     svg.selectAll("text").attr("stroke-width", 0.2);
 
-    svg
+    var path = svg
       .append("path")
-      .datum(clean_data)
+      .datum(props.data)
       .attr("fill", "none")
       .attr("stroke", "#eec5d0")
       .attr("stroke-width", 1)
@@ -125,50 +127,36 @@ function LineChart(props: Props) {
         //@ts-ignore
         d3
           .line()
-          .x((d) => {
+          .x((d: any) => {
             //@ts-ignore
             return x(d.date);
           })
-          .y((d) => {
+          .y((d: any) => {
             //@ts-ignore
             return y(d.close);
           })
       );
 
-    // Append a circle
-    svg
-      .append("circle")
-      .attr("id", "circleBasicTooltip")
-      .attr("cx", 100)
-      .attr("cy", 100)
-      .attr("r", 40)
-      .attr("fill", "#69b3a2");
-
-    // create a tooltip
-    var tooltip = d3
-      .select(".LineChart")
-      .append("div")
-      .style("position", "absolute")
-      .style("visibility", "hidden")
-      .text("I'm a circle!");
-
-    d3.select("#circleBasicTooltip")
-      .on("mouseover", function () {
-        console.log("over");
-        return tooltip.style("visibility", "visible");
-      })
-      .on("mousemove", function (event) {
-        console.log("move", d3.event);
-      })
-      .on("mouseout", function () {
-        console.log("out");
-        return tooltip.style("visibility", "hidden");
-      });
+    svg.on("mousemove", function () {
+      let point = d3.mouse(svgRef.current);
+      console.log(point);
+    });
   };
 
-  return <svg ref={svgRef} className="LineChart" />;
-}
+  // Tooltip
+  // const toolDiv = d3
+  //   .select("#chartArea")
+  //   .append("div")
+  //   .style("visibility", "hidden")
+  //   .style("position", "absolute")
+  //   .style("background-color", "red");
 
+  return (
+    <div className="canvas">
+      <svg ref={svgRef} id="chartArea" className="LineChart" />;
+    </div>
+  );
+}
 interface Props {
   width: number;
   height: number;
@@ -176,6 +164,7 @@ interface Props {
   bottom: number;
   left: number;
   right: number;
+  data: any;
 }
 
 export default LineChart;

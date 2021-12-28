@@ -6,15 +6,17 @@ import { useParams } from "react-router-dom";
 /* COMPONENTS */
 import UserCard from "../components/UserCard";
 import LineChart from "../components/LineChart";
+import BarChart from "../components/BarChart";
 
 /* API */
 import { connect } from "react-redux";
-import { getBasicUserInfo } from "../actions/usersActions";
+import { getBasicUserInfo, getUserCommits } from "../actions/usersActions";
 
 function UserProfile(props: any) {
   let { username } = useParams();
 
   const [userData, setUserData]: any = useState({});
+  const [userCommits, setUserCommits]: any = useState([]);
 
   useEffect(() => {
     if (
@@ -25,6 +27,7 @@ function UserProfile(props: any) {
       setUserData(props.userBasicInfo.data);
     } else {
       props.getBasicUserInfo(username);
+      props.getUserCommits(username);
     }
   }, [username]);
 
@@ -41,6 +44,19 @@ function UserProfile(props: any) {
     }
   }, [props.userBasicInfo]);
 
+  const firstCommitsUpdate = useRef(true);
+  useEffect(() => {
+    if (firstCommitsUpdate.current) {
+      firstCommitsUpdate.current = false;
+      return;
+    }
+    if (props.userCommits.data.error) {
+      alert(props.userCommits.data.error);
+    } else if (props.userCommits.data) {
+      setUserCommits(props.userCommits.data);
+    }
+  }, [props.userCommits]);
+
   return (
     <div className="UserProfile">
       {/* <div style={{ margin: "10vh" }}> */}
@@ -52,14 +68,16 @@ function UserProfile(props: any) {
         <div className="second">
           <div className="ChartCard">
             <div>Title</div>
-            <LineChart
+            {/* <LineChart
               width={500}
               height={200}
               top={25}
               bottom={30}
               left={30}
               right={25}
-            />
+              data={userCommits}
+            /> */}
+            <BarChart data={userCommits} />
           </div>
         </div>
         {/* <div className="third"></div> */}
@@ -73,8 +91,10 @@ function UserProfile(props: any) {
 
 const mapStateToProps = (state: any) => ({
   userBasicInfo: state.users.userBasicInfo,
+  userCommits: state.users.userCommits,
 });
 
 export default connect(mapStateToProps, {
   getBasicUserInfo,
+  getUserCommits,
 })(UserProfile);
