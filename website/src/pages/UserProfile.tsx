@@ -69,7 +69,6 @@ function UserProfile(props: any) {
     if (data.title === "year") {
       setUserCommits(convertDataCommitsToYearly(props.userCommits.data));
     } else if (data.title === "month") {
-      // setUserCommits([]);
     }
   };
 
