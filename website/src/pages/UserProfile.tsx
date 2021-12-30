@@ -74,10 +74,8 @@ function UserProfile(props: any) {
   };
 
   const pull_convertScale = (data: any) => {
-    console.log(data);
     if (data) {
       if (data.timeScale.length === 4) {
-        console.log(convertYearlyDataToMonthly(data.data));
         setUserCommits(convertYearlyDataToMonthly(data.data));
       }
     }
