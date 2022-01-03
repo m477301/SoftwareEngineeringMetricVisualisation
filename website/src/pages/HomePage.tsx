@@ -27,7 +27,6 @@ function HomePage(props: any) {
 
   const pull_search_value = (data: any) => {
     if (data) {
-      console.log(data.search);
       props.getBasicUserInfo(data.search);
     }
   };

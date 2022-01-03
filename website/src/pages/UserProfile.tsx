@@ -25,6 +25,8 @@ function UserProfile(props: any) {
   const [userData, setUserData]: any = useState({});
   const [userCommits, setUserCommits]: any = useState([]);
 
+  const [backText, setBackText]: any = useState("");
+
   useEffect(() => {
     if (
       props.userBasicInfo &&
@@ -65,19 +67,18 @@ function UserProfile(props: any) {
     }
   }, [props.userCommits]);
 
-  const selectBarChartTimeline = (data: any) => {
-    if (data.title === "year") {
-      setUserCommits(convertDataCommitsToYearly(props.userCommits.data));
-    } else if (data.title === "month") {
-    }
-  };
-
   const pull_convertScale = (data: any) => {
     if (data) {
       if (data.timeScale.length === 4) {
+        setBackText("yearly");
         setUserCommits(convertYearlyDataToMonthly(data.data));
       }
     }
+  };
+
+  const pull_backTo = (data: any) => {
+    setBackText("");
+    setUserCommits(convertDataCommitsToYearly(props.userCommits.data));
   };
 
   return (
@@ -96,7 +97,8 @@ function UserProfile(props: any) {
                 { title: "year", state: true },
                 { title: "month", state: false },
               ]}
-              selectedTime={selectBarChartTimeline}
+              backText={backText}
+              backTo={pull_backTo}
             />
             <BarChart data={userCommits} convertScale={pull_convertScale} />
           </div>

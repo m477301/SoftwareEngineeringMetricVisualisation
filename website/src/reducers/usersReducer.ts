@@ -9,7 +9,7 @@ interface State {
 }
 
 const initialState: State = {
-  userBasicInfo: {},
+  userBasicInfo: [],
   userCommits: [],
 };
 

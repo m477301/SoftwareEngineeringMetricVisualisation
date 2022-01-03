@@ -110,4 +110,7 @@ router.get("/commits/:username", async (req, res) => {
     });
 });
 
+router.get("/languages/most/frequently/used", async (req, res) => {
+  return res.json("languages");
+});
 export default router;

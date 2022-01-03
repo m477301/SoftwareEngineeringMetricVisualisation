@@ -36,7 +36,7 @@ function BarChart(props: Props) {
   const drawChart = (data: any, dimensions: any) => {
     const chartWidth = dimensions.width / 2 - margin.left - margin.right;
 
-    const chartHeight = dimensions.height / 3 - margin.top - margin.bottom;
+    const chartHeight = dimensions.height / 3.5 - margin.top - margin.bottom;
 
     const svg = d3
       .select(chartRef.current)
