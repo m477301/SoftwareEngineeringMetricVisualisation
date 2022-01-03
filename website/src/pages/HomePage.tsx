@@ -1,6 +1,7 @@
 /* THIRD PARTY FUNCTIONS */
 import React from "react";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 /* COMPONENT */
 import SearchInput from "../components/SearchInput";
@@ -10,18 +11,22 @@ import { connect } from "react-redux";
 import { getBasicUserInfo } from "../actions/usersActions";
 
 function HomePage(props: any) {
+  const navigate = useNavigate();
   const firstUpdate = useRef(true);
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
     }
-    console.log("USER", props.userBasicInfo.data);
+    if (props.userBasicInfo.data.error) {
+      alert(props.userBasicInfo.data.error);
+    } else if (props.userBasicInfo.data) {
+      navigate("/user/" + props.userBasicInfo.data.login);
+    }
   }, [props.userBasicInfo]);
 
   const pull_search_value = (data: any) => {
     if (data) {
-      console.log(data.search);
       props.getBasicUserInfo(data.search);
     }
   };

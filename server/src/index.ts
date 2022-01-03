@@ -1,8 +1,8 @@
-import cors from "cors";
 import router from "./controllers/router";
 import config from "./configurations/server";
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 app.use(cors());

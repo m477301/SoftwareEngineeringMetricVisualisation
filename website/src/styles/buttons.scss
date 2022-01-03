@@ -1,0 +1,14 @@
+.buttonStyle {
+  color: white;
+  background-color: rgb(252, 169, 183);
+  border-color: white;
+  border-radius: 0.5rem;
+
+  &--back {
+    color: white;
+    background-color: rgb(252, 169, 183);
+    border-color: white;
+    border-radius: 0.5rem;
+    margin: 2vh;
+  }
+}
