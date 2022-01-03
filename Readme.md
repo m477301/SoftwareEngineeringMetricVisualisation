@@ -11,20 +11,20 @@ To run this application on your machine execute the following steps:
 ```https://github.com/m477301/SoftwareEngineeringMetricVisualisation.git```
 
 ### Run Backend
--- Start Docker Application on your machine
--- Navigate to the server folder on a command line
--- Build the server backend into a container by running the following command on the command line
+- Start Docker Application on your machine
+- Navigate to the server folder on a command line
+- Build the server backend into a container by running the following command on the command line
 ``` docker build --tag server . ```
 - Run the server container
 ```docker run --rm -d -p 8080:8080 --env-file .env server ```
 
 ### Run Frontend
--- Navigate to the website folder on the command line
--- Build the website into a container by running the following command on the command line
+- Navigate to the website folder on the command line
+- Build the website into a container by running the following command on the command line
 ```docker build --tag website . ```
--- Run the Website
+- Run the Website
 ```docker run --rm -d -p 3000:3000 website ```
--- It should occur automatically, but if you navigate to ``http://localhost:3000`` you should see the website running
+- It should occur automatically, but if you navigate to ``http://localhost:3000`` you should see the website running
 
 ### Note
 To access the github api one needs a personal access token as a security key, for privacy reasons I have kept mine in an .env file. So you must create
@@ -35,22 +35,22 @@ such token to access the github api.
 This application attempts to analyze and measure a software engineer based on the information available on through their Github User.
 
 The application is divided into two pages:
--- Home Page
--- User Profile
+- Home Page
+- User Profile
 
 The Home Page main component is a search input that allows the user to search for any Github user by their Github username.
 
 Once the User has been searched, the user will be redirected to that users User Profile.
 In the User Profile there are the following components.
 
--- The User Details
+- The User Details
 Here are layed the main details of the user and their github profile image.
 
--- User Commits over time Bar Chart.
+- User Commits over time Bar Chart.
 Here the user has the option to see the number of commits executed by the user in question over two periods of time.
 By default the barchart displays the yearly commits, but if one were to click into the year bar the barchart would expand and display the montlhly commits in that year.
 
--- User Most Frequently used Languages Piechart.
+- User Most Frequently used Languages Piechart.
 The final component displays the most frequently used languages by the user in a piechart. If you hover over a section, a tooltip will display the language and the overall percentage the language is used by the user.
 
 ## Technologies
