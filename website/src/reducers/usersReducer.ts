@@ -1,16 +1,19 @@
 import {
   GET_GITHUB_USER_BASIC_INFO,
   GET_ALL_USER_COMMITS,
+  GET_USER_MOST_FREQUENTLY_USED_LANGUAGES,
 } from "../actions/types";
 
 interface State {
   userBasicInfo: any;
   userCommits: any;
+  userLanguagesUsed: any;
 }
 
 const initialState: State = {
   userBasicInfo: [],
   userCommits: [],
+  userLanguagesUsed: [],
 };
 
 export default function usersReducer(state = initialState, action: any): State {
@@ -24,6 +27,11 @@ export default function usersReducer(state = initialState, action: any): State {
       return {
         ...state,
         userCommits: action.payload,
+      };
+    case GET_USER_MOST_FREQUENTLY_USED_LANGUAGES:
+      return {
+        ...state,
+        userLanguagesUsed: action.payload,
       };
     default:
       return state;

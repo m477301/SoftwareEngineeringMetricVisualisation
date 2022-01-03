@@ -71,7 +71,7 @@
 }
 
 .UserProfileCard {
-  max-height: 85vh;
+  max-height: 90vh;
   background-color: pink;
   padding: 20px;
   border-radius: 1rem;
@@ -90,7 +90,7 @@
     "a b b"
     "a c c";
   overflow: hidden;
-  margin: 5vh;
+  margin: 3vh;
 
   .first {
     grid-area: a;
@@ -104,5 +104,7 @@
   }
   .third {
     grid-area: c;
+    display: flex;
+    justify-content: center;
   }
 }

@@ -1,29 +1,34 @@
 /* THIRD PARTY FUNCTIONS */
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-// import * as d3 from "d3";
 
 /* COMPONENTS */
 import UserCard from "../components/UserCard";
-import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
 import ChartHeading from "../components/ChartHeading";
+import PieChart from "../components/PieChart";
 
 /* HELPERS */
 import {
   convertYearlyDataToMonthly,
   convertDataCommitsToYearly,
 } from "../helpers/CommitsTimes";
+import { dataLanguagesToPieChartData } from "../helpers/Piechart";
 
 /* API */
 import { connect } from "react-redux";
-import { getBasicUserInfo, getUserCommits } from "../actions/usersActions";
+import {
+  getBasicUserInfo,
+  getUserCommits,
+  getUserMostFrequentlyUsedLanguages,
+} from "../actions/usersActions";
 
 function UserProfile(props: any) {
   let { username } = useParams();
 
   const [userData, setUserData]: any = useState({});
   const [userCommits, setUserCommits]: any = useState([]);
+  const [userLanguages, setUserLanguages]: any = useState([]);
 
   const [backText, setBackText]: any = useState("");
 
@@ -38,6 +43,7 @@ function UserProfile(props: any) {
       props.getBasicUserInfo(username);
     }
     props.getUserCommits(username);
+    props.getUserMostFrequentlyUsedLanguages(username);
   }, [username]);
 
   const firstUpdate = useRef(true);
@@ -63,9 +69,24 @@ function UserProfile(props: any) {
       alert(props.userCommits.data.error);
     } else if (props.userCommits.data) {
       setUserCommits(convertDataCommitsToYearly(props.userCommits.data));
-      console.log("DATA", props.userCommits.data);
     }
   }, [props.userCommits]);
+
+  const firstLanguagesUpdate = useRef(true);
+  useEffect(() => {
+    if (firstLanguagesUpdate.current) {
+      firstLanguagesUpdate.current = false;
+      return;
+    }
+    if (props.userLanguagesUsed.data.error) {
+      alert(props.userLanguagesUsed.data.error);
+    } else if (props.userLanguagesUsed.data) {
+      console.log("REC");
+      setUserLanguages(
+        dataLanguagesToPieChartData(props.userLanguagesUsed.data)
+      );
+    }
+  }, [props.userLanguagesUsed]);
 
   const pull_convertScale = (data: any) => {
     if (data) {
@@ -103,10 +124,12 @@ function UserProfile(props: any) {
             <BarChart data={userCommits} convertScale={pull_convertScale} />
           </div>
         </div>
-        {/* <div className="third"></div> */}
-        {/* <div
-        style={{ backgroundColor: "red", width: "auto", height: "40vh" }}
-      ></div> */}
+        <div className="third">
+          <div className="ChartCard">
+            <ChartHeading title="Most Frequently Used Languages By User" />
+            <PieChart data={userLanguages} />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -115,9 +138,11 @@ function UserProfile(props: any) {
 const mapStateToProps = (state: any) => ({
   userBasicInfo: state.users.userBasicInfo,
   userCommits: state.users.userCommits,
+  userLanguagesUsed: state.users.userLanguagesUsed,
 });
 
 export default connect(mapStateToProps, {
   getBasicUserInfo,
   getUserCommits,
+  getUserMostFrequentlyUsedLanguages,
 })(UserProfile);

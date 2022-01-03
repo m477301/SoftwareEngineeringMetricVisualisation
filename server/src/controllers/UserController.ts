@@ -110,7 +110,80 @@ router.get("/commits/:username", async (req, res) => {
     });
 });
 
-router.get("/languages/most/frequently/used", async (req, res) => {
-  return res.json("languages");
+router.get("/languages/:username", async (req, res) => {
+  let requestedUser = req.params.username;
+  let url =
+    process.env["GITHUB_API_URL"] + "/users/" + requestedUser + "/repos";
+  let tokenString = ("token " + process.env["PERSONAL_ACCESS_TOKEN"]) as string;
+  await axios
+    .get(url, {
+      headers: {
+        authorization: tokenString,
+      },
+    })
+    .then(async (response) => {
+      let listOfRepoNames = response.data.map((d) => {
+        return d.name;
+      });
+      let languages = [];
+      for (let i = 0; i < listOfRepoNames.length; i++) {
+        let repoLanguagesByUserUrl =
+          process.env["GITHUB_API_URL"] +
+          "/repos/" +
+          requestedUser +
+          "/" +
+          listOfRepoNames[i] +
+          "/languages";
+        await axios
+          .get(repoLanguagesByUserUrl, {
+            headers: {
+              authorization: tokenString,
+            },
+          })
+          .then((response) => {
+            languages = languages.concat(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      // Clean up Languages List
+      let singleLanguage = {};
+      let total = -1;
+      languages.map((d) => {
+        for (var key in d) {
+          // skip loop if the property is from prototype
+          if (!d.hasOwnProperty(key)) continue;
+
+          var obj = d[key];
+          total += obj;
+          if (singleLanguage.hasOwnProperty(key)) {
+            singleLanguage[key] += obj;
+          } else {
+            singleLanguage[key] = obj;
+          }
+        }
+      });
+
+      let languageOther = { Other: 0 };
+      for (var key in singleLanguage) {
+        // skip loop if the property is from prototype
+        if (!singleLanguage.hasOwnProperty(key)) continue;
+
+        let scaledObj = (singleLanguage[key] / total) * 100;
+        if (scaledObj <= 5) {
+          languageOther.Other += scaledObj;
+        } else {
+          languageOther[key] = Math.floor(scaledObj);
+        }
+      }
+      languageOther.Other = Math.ceil(languageOther.Other);
+      return res.json(languageOther);
+    })
+    .catch((error) => {
+      console.log(error);
+
+      return res.json({ error: "error retrieving users commits" });
+    });
 });
 export default router;

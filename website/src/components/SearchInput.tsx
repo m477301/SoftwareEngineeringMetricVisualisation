@@ -7,7 +7,6 @@ function SearchInput(props: any) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(inputValue);
         props.getSearchValue({
           search: inputValue,
         });

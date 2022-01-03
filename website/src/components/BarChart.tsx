@@ -24,9 +24,9 @@ function BarChart(props: Props) {
       }
     });
     if (props.data && props.data.length >= 1) {
-      if (chartRef.current !== null) {
-        d3.selectAll("g").remove();
-      }
+      // if (chartRef.current !== null) {
+      //   d3.selectAll("g").remove();
+      // }
 
       drawChart(props.data, dimensions);
     }
@@ -87,7 +87,9 @@ function BarChart(props: Props) {
       .attr("height", (d: any) => y(0) - y(d.data.length))
       .attr("width", x.bandwidth())
       .on("click", function (d, i) {
-        props.convertScale(d);
+        if (props.convertScale) {
+          props.convertScale(d);
+        }
       });
 
     svg
@@ -108,7 +110,7 @@ function BarChart(props: Props) {
 
 interface Props {
   data: any;
-  convertScale: any;
+  convertScale?: any;
 }
 
 export default BarChart;

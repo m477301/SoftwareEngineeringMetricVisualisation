@@ -22,8 +22,8 @@ function ChartHeading(props: Props) {
 interface Props {
   title: string;
   widgetOptions?: any;
-  backText: any;
-  backTo: any;
+  backText?: any;
+  backTo?: any;
 }
 
 export default ChartHeading;

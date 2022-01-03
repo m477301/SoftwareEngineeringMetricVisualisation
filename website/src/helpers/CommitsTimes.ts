@@ -34,8 +34,6 @@ const months = [
 ];
 
 export const convertYearlyDataToMonthly = (commits: any) => {
-  console.log("Commits", commits);
-
   let monthlyCommits: any = months.map((d) => {
     return {
       timeScale: d,

@@ -138,7 +138,6 @@ function LineChart(props: Props) {
 
     svg.on("mousemove", function () {
       let point = d3.mouse(svgRef.current);
-      console.log(point);
     });
   };
 
