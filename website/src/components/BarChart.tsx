@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 
+/* COMPONENTS */
+import ActionText from "./ActionText";
+
 function BarChart(props: Props) {
   const chartRef = useRef(null);
   const [dimensions, setDimensions] = useState({
@@ -24,9 +27,9 @@ function BarChart(props: Props) {
       }
     });
     if (props.data && props.data.length >= 1) {
-      // if (chartRef.current !== null) {
-      //   d3.selectAll("g").remove();
-      // }
+      if (chartRef.current !== null) {
+        d3.select("#barChart").select("svg").selectAll("g").remove();
+      }
 
       drawChart(props.data, dimensions);
     }
@@ -103,7 +106,13 @@ function BarChart(props: Props) {
 
   return (
     <div id="barChart">
-      <svg ref={chartRef} />
+      {props.data === -1 ? (
+        <ActionText text={"Loading..."} />
+      ) : props.data.length == 0 ? (
+        <ActionText text={"No Data Available"} />
+      ) : (
+        <svg ref={chartRef} />
+      )}
     </div>
   );
 }

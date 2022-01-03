@@ -7,6 +7,7 @@ import UserCard from "../components/UserCard";
 import BarChart from "../components/BarChart";
 import ChartHeading from "../components/ChartHeading";
 import PieChart from "../components/PieChart";
+import BackButton from "../components/BackButton";
 
 /* HELPERS */
 import {
@@ -27,8 +28,8 @@ function UserProfile(props: any) {
   let { username } = useParams();
 
   const [userData, setUserData]: any = useState({});
-  const [userCommits, setUserCommits]: any = useState([]);
-  const [userLanguages, setUserLanguages]: any = useState([]);
+  const [userCommits, setUserCommits]: any = useState(-1);
+  const [userLanguages, setUserLanguages]: any = useState(-1);
 
   const [backText, setBackText]: any = useState("");
 
@@ -107,8 +108,8 @@ function UserProfile(props: any) {
       {/* <div style={{ margin: "10vh" }}> */}
       <div className="UserProfileCard">
         <div className="first">
+          <BackButton text={"Back Home"} />
           <UserCard {...userData} />
-          <div></div>
         </div>
         <div className="second">
           <div className="ChartCard">

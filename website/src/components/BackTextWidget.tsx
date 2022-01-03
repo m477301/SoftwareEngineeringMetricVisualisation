@@ -3,6 +3,7 @@ import React from "react";
 function BackTextWidget(props: Props) {
   return (
     <button
+      className="buttonStyle"
       onClick={() => {
         props.backTo();
       }}

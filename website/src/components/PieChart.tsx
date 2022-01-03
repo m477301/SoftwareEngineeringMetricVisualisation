@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 
+/* COMPONENTS */
+import ActionText from "./ActionText";
+
 function PieChart(props: Props) {
   const chartRef = useRef(null);
 
@@ -12,15 +15,15 @@ function PieChart(props: Props) {
       })(props.data);
 
       // Define Arcs for graphing and labeling
-      const arc = d3.arc().innerRadius(0).outerRadius(100);
+      const arc = d3.arc().innerRadius(0).outerRadius(91);
 
       // Define the Size and position of the svg
       const svg = d3
         .select(chartRef.current)
-        .attr("width", 300)
-        .attr("height", 300)
+        .attr("width", 250)
+        .attr("height", 250)
         .append("g")
-        .attr("transform", "translate(150, 150)");
+        .attr("transform", "translate(125, 125)");
 
       // Add Tooltip
       const tooldiv = d3
@@ -59,7 +62,13 @@ function PieChart(props: Props) {
 
   return (
     <div id="pieChart">
-      <svg ref={chartRef} />
+      {props.data === -1 ? (
+        <ActionText text={"Loading..."} />
+      ) : props.data[0].count == 0 ? (
+        <ActionText text={"No Data Available"} />
+      ) : (
+        <svg ref={chartRef} />
+      )}
     </div>
   );
 }
