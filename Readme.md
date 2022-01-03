@@ -1,107 +1,81 @@
-## Notes
+# Software Engineering Metric Visualisation
 
-https://github.com/m477301/SoftwareEngineeringMetricVisualisation/blob/main/Demo.mp4
+https://user-images.githubusercontent.com/23319263/147977197-18b5a4c8-6887-42f4-954d-3883b6c3226e.mp4
 
-So busy developers spread across few projects or many?
-Are open source developers explorers/learn, spend time in different places, or engagers stick with projects.
-github api v3.
-who commits the most?
-who is the most active developer?
-who is the most useful contributor in a project?
-look at dates, consistency.
-social network
-most awards
-most prolific
-most helpful
-most impact
-withing a network of users and contributors, within single repo or multiple
+## Run Application
 
-CASE STUDY: Last years algorithms SSHLIDES group project.
-Last years sweng group project.
+To run this application on your machine execute the following steps:
 
-QUESTIONS
+### Clone Repository
 
-Build measuring tool
+```https://github.com/m477301/SoftwareEngineeringMetricVisualisation.git```
 
-Good Engineers (Thought of as good) -- what characteristics do they have
-Linus
-Biography guy
+### Run Backend
+-- Start Docker Application on your machine
+-- Navigate to the server folder on a command line
+-- Build the server backend into a container by running the following command on the command line
+``` docker build --tag server . ```
+- Run the server container
+```docker run --rm -d -p 8080:8080 --env-file .env server ```
 
-# Technology
+### Run Frontend
+-- Navigate to the website folder on the command line
+-- Build the website into a container by running the following command on the command line
+```docker build --tag website . ```
+-- Run the Website
+```docker run --rm -d -p 3000:3000 website ```
+-- It should occur automatically, but if you navigate to ``http://localhost:3000`` you should see the website running
 
-d3
-three.js
+### Note
+To access the github api one needs a personal access token as a security key, for privacy reasons I have kept mine in an .env file. So you must create
+such token to access the github api.
 
-## Ideas
+## Description
 
-Test backend and frontend
-commit often commit early
+This application attempts to analyze and measure a software engineer based on the information available on through their Github User.
 
-// Setup Backend and Backend Tests Framework
-// Dockerize backend
+The application is divided into two pages:
+-- Home Page
+-- User Profile
 
-// Setup frontend and frontend tests
-// Dockerize frontend
+The Home Page main component is a search input that allows the user to search for any Github user by their Github username.
 
-Searchable Github Visualisation of User (User Profile Analysing performance)
+Once the User has been searched, the user will be redirected to that users User Profile.
+In the User Profile there are the following components.
 
-// -- Details about the user (contacts), any relevant infor
--- Commit history
--- Repos Forked
--- Collaborators
--- Impact of Commit (Lines Added Lines Removed)
--- Types of actions Commits/PRs/Resolving Issues
--- Most frequently used languages (Piechart and Barchart)
--- Avg number of commits per week
--- Avg number of prs per week
-Bring page all together
+-- The User Details
+Here are layed the main details of the user and their github profile image.
 
-Landing Page as well
+-- User Commits over time Bar Chart.
+Here the user has the option to see the number of commits executed by the user in question over two periods of time.
+By default the barchart displays the yearly commits, but if one were to click into the year bar the barchart would expand and display the montlhly commits in that year.
 
-Script to run frontend easily and backend easily
+-- User Most Frequently used Languages Piechart.
+The final component displays the most frequently used languages by the user in a piechart. If you hover over a section, a tooltip will display the language and the overall percentage the language is used by the user.
 
-Explore Github API
-
-Network Graphic User - Repo - Contibutors
-Click User, user profile
-Click Repo, Compare multiple users performance in single repo (Contributors vs main user)
-Click Contributors, contributors profile
-
-Repo Profile
-Animated Commit history
-Animated Languages used (Piechart)
-Collapse Tree Branch History
-
-host the website on matteomcguinness.com/githubvisualisation with github actions
-Rewrite Readme.md
-
-Mini Demo video
-Describe Setup(Create env)
-Describe Folder Structure
-
-## Extras
-
-Animated Page transition bottom to top after search for user profile
-Home Page, html canvas moving directed graphs mockup
-Interesting Repos sxywu
-
-## Plan
-
-run from script
-matteomcguinness.com/githubvisualisation
+## Technologies
 
 Github API
 ||
-(Gather Data (Backend) -- Typescript (Dockerized) -- SQL Cache data in db for ease of use in future
+(Gather Data (Backend) -- Typescript (Dockerized)
 ||
 Rest API (Backend) -- Typescript(React) (Dockerized))
 ||
 Display Data (Frontend) -- Typescript (Dockerized)
 
-// Backend
-docker build --tag server .
-docker run --rm -d -p 8080:8080 --env-file .env server
+## Possible Improvements
+In this section, I have noted possible improvement I could implement to the application at a later stage.
 
-// frontend
-docker build --tag website .
-docker run --rm -d -p 3000:3000 website
+Network Graphic User - Repo - Contibutors
+Click User, user profile
+Click Repo, Compare multiple users performance in single repo (Contributors vs main user)
+Click Contributors, contributors profile
+Repository Profile
+Animated Commit history
+Animated Languages used (Piechart)
+Collapse Tree Branch History
+Animated Page transition bottom to top after search for user profile
+Home Page, html canvas moving directed graphs mockup
+
+
+
